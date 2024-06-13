@@ -37,17 +37,6 @@ class ManageActivityController extends Controller
             'activity_studentAge' => 'required',
             ]);
         // dd($request);
-        // $kafaActivity = new ManageActivityEntity();
-        // $kafaActivity->activity_id = $request->activity_id;
-        // $kafaActivity->activity_name = $request->activity_name;
-        // $kafaActivity->activity_desc = $request->activity_desc;
-        // $kafaActivity->activity_dateTime = $request->activity_dateTime;
-        // $kafaActivity->activity_studentAge = $request->activity_studentAge;
-        // $kafaActivity->activity_studentNum = $request->activity_studentNum;
-        // $kafaActivity->activity_comment = $request->activity_comment;
-        // $kafaActivity->user_id = auth()->id(); // Set the 'user id' to the currently authenticated user's id
-        // $kafaActivity->save();
-
         ManageActivityEntity::create($request->all());
     
         return redirect()->route('kafaActivity')->with('success', 'Activity added successfully');
@@ -56,9 +45,10 @@ class ManageActivityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ManageActivityEntity $ManageActivityEntity)
+    public function show($id)
     {
-        //
+        $kafaActivity = ManageActivityEntity::find($id);
+        return view('ManageKafaActivity.viewKafaActivityForm', compact('kafaActivity'));
     }
 
     /**

@@ -86,6 +86,7 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
    Route::get('/kafaActivty/edit/{id}', [ManageActivityController::class, 'edit'])->name('editKafaActivity');
    Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
    Route::post('/kafaActivty/delete/{id}', [ManageActivityController::class, 'destroy'])->name('deleteKafaActivity');
+   Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
 });
 
 // Announcement & User Module

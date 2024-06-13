@@ -1,7 +1,7 @@
 <x-app-layout>
     {{-- Title --}}
     <div class="font-extrabold text-xl mt-2">
-        Add Kafa Activity
+        Add KAFA Activity form
     </div>
 
     <div class="py-12">
@@ -50,12 +50,12 @@
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="flex justify-end px-4 py-2">
+                        <div class="flex justify-center px-4 py-2">
                             <div class="flex justify-center px-4 py-2">
                                 <div class="px-4">
-                                    <input type="button" value="Cancel" class="btn border border-slate-400 bg-red-400 px-3 py-2 rounded-xl hover:bg-gray-300 w-full" onclick="handleCancel()">                            </div>
+                                    <input type="button" value="Cancel" class="btn border border-slate-400 bg-red-400 px-5 py-2 rounded-xl hover:bg-gray-300 w-full" onclick="handleCancel()">                            </div>
                                 <div class="px-4">
-                                    <input type="submit" value="  Save  " class="btn btn-success border border-slate-400 bg-emerald-500/80 px-3 py-2 rounded-xl hover:bg-emerald-400/80">
+                                    <input type="submit" value="Save" class="btn btn-success border border-slate-400 bg-emerald-500/80 px-7 py-2 rounded-xl hover:bg-emerald-400/80">
                                 </div>
                             </div>
                         </div>
