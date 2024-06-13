@@ -1,8 +1,14 @@
 <x-guest-layout>
-    <x-authentication-card>
+    <x-authentication-card  style="background-color: #f0f0f0;">
         <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+            <div style="padding: 20px; text-align: center;">
+                <img src="{{ asset('images/logo-muip.png') }}" alt="Logo MUIP">
+            </div>            
+            <div style="padding: 20px; text-align: center; font-size: 40px;">
+                <p>MUIP KAFA Management System (MKFMS)</p>
+            </div>
+            {{-- <x-authentication-card-logo /> --}}
+        </x-slot>   
 
         <x-validation-errors class="mb-4" />
 
