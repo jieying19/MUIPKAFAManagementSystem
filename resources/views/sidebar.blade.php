@@ -19,7 +19,7 @@
         @endif
 
         {{-- Edit Announcement --}}
-        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin'|| Auth::user()->role == 'teacher')
         <a href="{{ route('announcement') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -37,7 +37,7 @@
         @endif
 
         {{-- Kafa Activity --}}
-        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin'|| Auth::user()->role == 'teacher')
         <a href="{{ route('kafaActivity') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -56,7 +56,7 @@
 
         {{-- User List --}}
         {{-- Only KAFA Admin can access this module --}}
-        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin')
         <a href="{{ route('user') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -113,7 +113,7 @@
 
         {{-- Report --}}
         {{-- Only KAFA Admin and MUIP Admin can access this module --}}
-        @if (Auth::user()->role == 'KAFAadmin' || Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin' || Auth::user()->role == 'MUIPadmin'|| Auth::user()->role == 'teacher')
         <a href="{{ route('report') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -131,8 +131,8 @@
         @endif
 
         {{-- Duty Roster --}}
-        {{-- Only Admin and Cashier can access this module --}}
-        @if (Auth::user()->role == 'admin' || Auth::user()->role == 'cashier')
+        {{-- Only KAFAadmin can access this module --}}
+        @if (Auth::user()->role == 'KAFAadmin')
         <a href="{{ route('DutyRoster') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -143,7 +143,7 @@
                     </svg>
                 </div>
                 <div>
-                    STUDENT REGISTRATION
+                    DUTY ROSTER
                 </div>
             </x-nav-item>
         </a>

@@ -33,7 +33,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        if (Auth::user()->role != 'KAFAadmin') {
+        if (Auth::user()->role != 'KAFAadmin'||Auth::user()->role != 'MUIPadmin'||Auth::user()->role != 'teacher') {
             return view('dashboard');
         }
         else {
@@ -41,20 +41,6 @@ Route::middleware([
         }
     })->name('dashboard');
 });
-
-// Student Registration  Module
-Route::get('/studentRegistration', [StudentRegistrationController::class, 'index'])->name('ManageStudentRegistration.StudentRegistrationList');
-Route::get('/studentRegistration/add', [StudentRegistrationController::class, 'create'])->name('ManageStudentRegistration.AddStudentRegistrationForm');
-Route::post('/studentRegistration/store', [StudentRegistrationController::class, 'store'])->name('storeStudentRegistration');
-Route::get('/studentRegistration/show/{student_id}', [StudentRegistrationController::class, 'show'])->name('ManageStudentRegistration.ViewStudentRegistrationForm');
-Route::get('/studentRegistration/edit/{id}', [StudentRegistrationController::class, 'edit'])->name('ManageStudentRegistration.EditStudentRegistrationForm');
-Route::post('/studentRegistration/update/{id}', [StudentRegistrationController::class, 'update'])->name('ManageStudentRegistration.UpdateStudentRegistration');
-Route::post('/studentRegistration/delete/{id}', [StudentRegistrationController::class, 'destroy'])->name('deleteStudentRegistration');
-Route::post('/studentRegistration/{student_id}/update-status', [StudentRegistrationController::class, 'updateStatus'])->name('updateStudentStatus');
-Route::post('/studentRegistrationReport/view', [StudentRegistrationController::class, 'indexStudentReport'])->name('ManageStudentRegistration.ViewStudentRegistrationReport');
-Route::post('/studentRegistrationReport', [StudentRegistrationController::class, 'indexStudentReport'])->name('studentRegistrationReport');
-Route::get('/studentRegistrationReport/csv', [StudentRegistrationController::class, 'exportStudentCSV'])->name('student.csv');
-Route::get('/studentRegistrationReport/data/{range}', [StudentRegistrationController::class, 'getAgeData'])->name('ManageStudentAgeData');
 
 // Duty Roster  Module
 Route::get('/dutyRoster', [DutyRosterController::class, 'index'])->name('DutyRoster');
@@ -86,6 +72,8 @@ Route::middleware('role:parent')->group(function () {
 //Report Module
 // Only Admin and Coordinator can access this route
 Route::middleware('role:admin,coordinator')->group(function () {
+// Only KAFA Admin and MUIP Admin can access this route
+Route::middleware('role:KAFAadmin,MUIPadmin,teacher')->group(function () {
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::post('/report', [ReportController::class, 'index'])->name('report');
     Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
