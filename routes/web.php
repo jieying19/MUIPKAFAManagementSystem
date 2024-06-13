@@ -86,11 +86,6 @@ Route::middleware('role:parent')->group(function () {
 //Report Module
 // Only Admin and Coordinator can access this route
 Route::middleware('role:admin,coordinator')->group(function () {
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
-    Route::post('/report', [ReportController::class, 'index'])->name('report');
-    Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
-    Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
-
 
    // Manage Kafa Activity Module
    Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
@@ -143,8 +138,4 @@ Route::middleware('role:KAFAadmin')->group(function () {
 //Report Module
 // KAFA Admin , teacher and MUIP admin- change the role to ..
 Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
-    Route::post('/report', [ReportController::class, 'index'])->name('report');
-    Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
-    Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
 });
