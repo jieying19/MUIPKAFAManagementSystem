@@ -1,59 +1,44 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h2><b>Student Result Detail</b></h2>
+<x-app-layout>
+    <div class="w-full">
+        {{-- Title --}}
+        <div class="font-extrabold text-xl mt-2">
+            Add Courses
         </div>
-        <div class="col-md-6 mt-4 d-flex justify-content-end align-items-center">
-            <button class="btn btn-primary" style="background-color:#2a82d5; color:white;" onclick="window.print()">Download Report</button>
+        <div class="flex justify-end w-full mb-5 relative right-0">
+            @include('components.searchbar')
+        </div>
+        {{-- Error message if there is an existing course ID --}}
+        @if (session('error'))
+            <div class="bg-red-500 p-1 mx-1 mb-3 rounded-xl text-white text-center">
+                {{ session('error') }}
+            </div>
+        @endif
+        <div class="bg-white border border-slate-300 rounded-xl w-full p-3">
+            <form action="{{ route('ManageStudentResult.storeNewCourse') }}" method="POST">
+                @csrf
+                <input type="hidden" name="subjectID" value="{{ request('subjectID') }}">
+                <table class="rounded-xl px-4 w-full">
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-2"><label>Course Name</label></td>
+                            <td class="px-4 py-2"><input type="text" name="subjectName" class="form-control rounded-xl w-full bg-gray-200 border border-slate-400" required></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2"><label>Exam Date</label></td>
+                            <td class="px-4 py-2"><input type="date" name="subjectExamDate" class="form-control rounded-xl w-full bg-gray-200 border border-slate-400" required></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="flex justify-end px-4 py-2">
+                    <div class="px-4">
+                        <button type="button" class="btn btn-outline-dark border border-slate-400 bg-gray-400 px-3 py-2 rounded-xl hover:bg-gray-300"
+                            onclick="window.history.back()">Cancel</button>
+                    </div>
+                    <div class="px-4">
+                        <input type="submit" value="Submit" class="btn btn-success border border-slate-300 bg-emerald-500/80 px-3 py-2 rounded-xl hover:bg-emerald-400/80">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h6>Student Name: {{ $student->studentName }}</h6>
-            <h6>Class: {{ $student->className }}</h9>
-        </div>
-    </div>
-    
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width: 50%">Course</th>
-                    <th style="width: 25%">Marks</th>
-                    <th style="width: 25%">Grades</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($results as $result)
-                <tr style="height: 50px; vertical-align:middle;">
-                    <td>{{ $result->subjectName }}</td>
-                    <td>{{ $result->resultMark }}</td>
-                    <td>{{ $result->resultGrade }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    <div class="d-flex flex-row-reverse">
-    </div>
-</div>
-
-<div style="position: fixed; left: 50%; transform: translate(-50%, -50%);">
-    @if (session('failure'))
-    <div class="alert alert-danger">
-        {{ session('failure') }}
-    </div>
-    @endif <!--Red pop up message-->
-
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif <!--Green pop up message-->
-</div>
-@endsection
+</x-app-layout>
