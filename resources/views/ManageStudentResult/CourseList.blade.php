@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row mb-4">
         <div class="col-md-6">
-            <h2><b>All Courses List</b></h2>
+            <h2><b>Courses List</b></h2>
         </div>
         <div class="col-md-6 mt-4 d-flex justify-content-end align-items-center">
             <!--Only admin and teacher can see ADD button -->
@@ -32,7 +32,7 @@
 
                     <td>
 
-                        <!--Only accessed by admin and teacher-->
+                        <!--Only accessed by staffs-->
                         @if (auth()->user()->role == 'admin' || auth()->user()->role == 'teacher')
 
                         <a href="{{ route('ManageStudentResult.viewStudentList', ['subjectID' => $subjects->subjectID]) }}"><box-icon type='solid' name='user-plus'></box-icon></a>

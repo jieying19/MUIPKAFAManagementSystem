@@ -10,6 +10,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\ManageActivityController;
 use App\Http\Controllers\DutyRosterController;
+use App\Http\Controllers\StudentResultController;
 
 // Change this to change the default page
 Route::get('/', function () {
@@ -124,21 +125,17 @@ Route::get('/announcementList', [AnnouncementController::class, 'announcementLis
 
 
 //student Result
+Route::get('ManageStudentResult/viewStudentResult', [StudentResultController::class, 'viewStudentResult'])->name('ManageStudentResult.viewStudentResult');
+Route::get('ManageStudentResult/viewSubjectList', [StudentResultController::class, 'viewSubjectList'])->name('ManageStudentResult.viewSubjectList');
+Route::post('ManageStudentResult/storeNewCourse', [StudentResultController::class, 'storeNewCourse'])->name('ManageStudentResult.storeNewCourse');
+Route::get('ManageStudentResult/newCourse', [StudentResultController::class, 'newCourse'])->name('ManageStudentResult.newCourse');
+Route::post('ManageStudentResult/addResult', [StudentResultController::class, 'addResult'])->name('ManageStudentResult.addResult');
+Route::get('ManageStudentResult/viewStudentList', [StudentResultController::class, 'viewStudentList'])->name('ManageStudentResult.viewStudentList');
+Route::get('ManageStudentResult/editResult', [StudentResultController::class, 'editResult'])->name('ManageStudentResult.editResult');
+Route::post('ManageStudentResult/uploadResult', [StudentResultController::class, 'uploadResult'])->name('ManageStudentResult.uploadResult');
+Route::delete('ManageStudentResult/deleteCourse/{id}', [StudentResultController::class, 'deleteCourse'])->name('ManageStudentResult.deleteCourse');
 
-Route::middleware('role:admin')->group(function () {
-   
-    Route::get('/dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcement');
-    Route::get('/announcements/add', [AnnouncementController::class, 'create'])->name('addAnnouncement');
-    Route::post('/announcements/store', [AnnouncementController::class, 'store'])->name('storeAnnouncement');
-    Route::get('/announcements/edit/{id}', [AnnouncementController::class, 'edit'])->name('editAnnouncement');
-    Route::post('/announcements/update/{id}', [AnnouncementController::class, 'update'])->name('updateAnnouncement');
-    Route::post('/announcements/delete/{id}', [AnnouncementController::class, 'destroy'])->name('deleteAnnouncement');
 
-//Report Module
-// KAFA Admin , teacher and MUIP admin- change the role to ..
-Route::middleware('role:admin,coordinator')->group(function () {
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
-    Route::post('/report', [ReportController::class, 'index'])->name('report');
-    Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
-    Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
-});
+Route::resources([
+    'ManageStudentResult' => StudentResultController::class,
+]);
