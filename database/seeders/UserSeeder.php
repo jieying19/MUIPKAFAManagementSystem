@@ -15,7 +15,6 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
             'name' => "KAFA",
-            'matric_id' => "CB19000",
             'phone_num' => "0123456789",
             'role' => "KAFAadmin",
             'email' => "kafa@test",
@@ -24,7 +23,6 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'name' => "MUIP",
-            'matric_id' => "CB19000",
             'phone_num' => "0123456789",
             'role' => "MUIPadmin",
             'email' => "muip@test",
@@ -33,7 +31,6 @@ class UserSeeder extends Seeder
         
         User::factory()->create([
             'name' => "Wan",
-            'matric_id' => "CB21042",
             'phone_num' => "0123456789",
             'role' => "parent",
             'email' => "wan@test",
@@ -42,7 +39,6 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'name' => "Junta",
-            'matric_id' => "CB21001",
             'phone_num' => "0123456789",
             'role' => "parent",
             'email' => "junta@test",
@@ -51,7 +47,6 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'name' => "Abby",
-            'matric_id' => "CB21002",
             'phone_num' => "0123456789",
             'role' => "parent",
             'email' => "abby@test",
@@ -60,7 +55,6 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'name' => "Jie Ying",
-            'matric_id' => "CB21003",
             'phone_num' => "0123456789",
             'role' => "parent",
             'email' => "jie@test",

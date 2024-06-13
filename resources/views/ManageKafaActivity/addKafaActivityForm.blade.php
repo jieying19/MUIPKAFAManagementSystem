@@ -1,4 +1,7 @@
 <x-app-layout>
+@if (auth()->user()->role != 'KAFAadmin' && auth()->user()->role != 'Teacher')
+    {{ abort(403, 'Unauthorized action.') }}
+@endif
     {{-- Title --}}
     <div class="font-extrabold text-xl mt-2">
         Add KAFA Activity form

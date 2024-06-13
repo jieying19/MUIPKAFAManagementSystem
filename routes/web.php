@@ -69,6 +69,11 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
 Route::middleware('role:parent')->group(function () {
     Route::get('/viewPayment', [PaymentController::class, 'userIndex'])->name('payment.userIndex')->middleware('role:parent');
     Route::post('/viewPayment/insert/{userName}', [PaymentController::class, 'updateUser'])->name('payment.userInsert');
+
+   // Manage Kafa Activity Module
+   Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
+   Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
+   Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
 });
 
 //Report Module

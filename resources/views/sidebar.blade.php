@@ -37,7 +37,7 @@
         @endif
 
         {{-- Kafa Activity --}}
-        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin' || Auth::user()->role == 'parent')
         <a href="{{ route('kafaActivity') }}">
             <x-nav-item>
                 <div class="self-center">

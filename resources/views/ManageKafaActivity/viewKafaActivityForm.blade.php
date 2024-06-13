@@ -28,6 +28,34 @@
                         <label for="comment" class="block text-gray-700 text-sm font-bold mb-2">Activity Comment:</label>
                         <p>{{ $kafaActivity->activity_comment }}</p>
                     </div>
+                    <div class="mb-4">
+                        {{-- @if (auth()->user()->role == 'user')
+                    <form id="participationForm"
+                        action="{{ route('manageActivity.participate', ['activity' => $activity['id']]) }}" method="POST">
+                        @csrf
+                        <div class="form-group row m-3">
+                            <label for="participate" class="col-sm-12 col-form-label"><b><u>Participation</u></b></label>
+                            <select class="form-control" id="participate" name="student_id">
+                                <option value="" selected disabled>Participate as</option>
+                                @foreach ($students as $student)
+                                    @if ($student->user_id == Auth::id())
+                                        <option value="{{ $student->id }}">{{ $student->stdName }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </form> --}}
+                        {{-- @if (auth()->user()->role == 'KAFAadmin')
+                        
+                                <div class="form-group row m-3">
+                                    <label for="participate" class="col-sm-12 col-form-label"><b><u>Participation</u></b></label>
+                                    <select class="form-control" id="participate" name="student_id">
+                                        <option value="" selected disabled>Participate as</option>
+            
+                                    </select>
+                                </div>
+                        @endif     --}}
+                    </div>
                     <div class="flex justify-center px-4 py-2">
                         {{-- <div class="px-4">
                             <a href="{{ route('editKafaActivity', $kafaActivity->id) }}" class="btn border border-slate-400 bg-emerald-500/80 px-3 py-2 rounded-xl hover:bg-emerald-400/80">Edit</a>
