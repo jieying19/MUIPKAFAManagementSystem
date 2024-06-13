@@ -5,11 +5,13 @@
         </div>
         <div class="flex justify-end w-full mb-5 relative right-0">
             @include('components.searchbar')
+            @if (auth()->user()->role != 'parent' && auth()->user()->role != 'MUIPadmin')
             <a href="{{ route('addKafaActivity') }}"
                 class="p-2 mx-2 border border-transparent rounded-xl hover:text-gray-600"
                 style="background-color: #00AEA6;">
                 Add Kafa Activity
             </a>
+            @endif
         </div>
         <div class="bg-white border border-slate-300 rounded-xl w-full p-4 overflow-y-auto h-4/5">
             <table class="table-auto w-full text-center">
@@ -23,15 +25,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($kafaActivity as $kafaActivity)
+                    @foreach ($kafaActivity as $activity)
                         <tr class="bg-gray-200 border-y-8 border-white">
-                            <td class="py-2 px-4">{{ $kafaActivity->id }}</td>
-                            <td class="py-2 px-4 text-center">{{ $kafaActivity->activity_name }}</td>
-                            <td class="py-2 px-4">{{ $kafaActivity->activity_dateTime }}</td>
-                            <td class="py-2 px-4">{{ $kafaActivity->activity_studentNum }}</td>
+                            <td class="py-2 px-4">{{ $activity->id }}</td>
+                            <td class="py-2 px-4 text-center">{{ $activity->activity_name }}</td>
+                            <td class="py-2 px-4">{{ $activity->activity_dateTime }}</td>
+                            <td class="py-2 px-4">{{ $studentCounts[$activity->id] }}</td> <!-- Use correct student count -->
                             <td class="flex justify-center">
                                 @if (auth()->user()->role != 'KAFAadmin' && auth()->user()->role != 'teacher')
-                                <a href="{{ route('viewKafaActivity', $kafaActivity->id) }}">
+                                <a href="{{ route('viewKafaActivity', $activity->id) }}">
                                     <svg id="view-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 m-2"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -41,14 +43,14 @@
                                     </svg>
                                 </a>
                                 @else
-                                <a href="{{ route('editKafaActivity', $kafaActivity->id) }}">
+                                <a href="{{ route('editKafaActivity', $activity->id) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-400 m-2"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                     </svg>
                                 </a>
-                                <a href="{{ route('viewKafaActivity', $kafaActivity->id) }}">
+                                <a href="{{ route('viewKafaActivity', $activity->id) }}">
                                     <svg id="view-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 m-2"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -62,7 +64,7 @@
                                         return confirm('Are you sure you want to delete the activity?');
                                     }
                                 </script>
-                                <form action="{{ route('deleteKafaActivity', $kafaActivity->id) }}" method="post">
+                                <form action="{{ route('deleteKafaActivity', $activity->id) }}" method="post">
                                     @csrf
                                     <button type="submit" onclick="return confirmDeleteKafaActivity()">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400 m-2"
@@ -77,6 +79,7 @@
                         </tr>
                     @endforeach
                 </tbody>
+                
             </table>
         </div>
     </div>

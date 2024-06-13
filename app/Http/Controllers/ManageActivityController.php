@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\ManageActivityEntity;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -11,13 +12,26 @@ class ManageActivityController extends Controller
     public function index()
     {
         $kafaActivity = ManageActivityEntity::all();
-        return view('ManageKafaActivity.kafaActivityList',compact("kafaActivity"));
+        $studentCounts = [];
+        
+        foreach ($kafaActivity as $activity) {
+            $studentCount = Attendance::where('activity_id', $activity->id)
+                ->select('student_id')
+                ->distinct()
+                ->count('student_id');
+            $studentCounts[$activity->id] = $studentCount; // Store count for each activity ID
+        }
+    
+        return view('ManageKafaActivity.kafaActivityList', compact('kafaActivity', 'studentCounts'));
     }
+    
+    
 
     public function kafaActivityList()
     {
         $kafaActivity = ManageActivityEntity::all();
-        return view('ManageKafaActivity.kafaActivityList')->with('kafaActivity', $kafaActivity);
+
+        return view('ManageKafaActivity.kafaActivityList', compact('kafaActivity'));
     }
 
     /**
@@ -43,16 +57,31 @@ class ManageActivityController extends Controller
         return redirect()->route('kafaActivity')->with('success', 'Activity added successfully');
     }
 
+    public function storeAttendance(Request $request, $id)
+    {
+        $request->validate([
+            'student_id' => 'required',
+            'activity_id' => 'required',
+            ]);
+        Attendance::create($request->all());        
+    
+        return redirect()->route('kafaActivity')->with('success', 'Activity added successfully');
+    }
     /**
      * Display the specified resource.
      */
     public function show($id)
-    {
-        $kafaActivity = ManageActivityEntity::find($id);
+{
+    $kafaActivity = ManageActivityEntity::find($id);
 
-        $students = Student::where('id', auth()->user()->id)->get(); //Get user's student objects
-        return view('ManageKafaActivity.viewKafaActivityForm', compact('kafaActivity', 'students'));
-    }
+    $attendances = Attendance::where('activity_id', $kafaActivity->id)->get();
+
+    // $allAttendances = Attendance::all();
+    // dd($allAttendances);
+    $students = Student::where('id', auth()->user()->id)->get(); // Assuming parent_id links students to parents
+    return view('ManageKafaActivity.viewKafaActivityForm', compact('kafaActivity', 'students', 'attendances'));
+}
+
 
     /**
      * Show the form for editing the specified resource.

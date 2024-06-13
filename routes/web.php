@@ -52,6 +52,7 @@ Route::post('/dutyRoster/delete/{id}', [DutyRosterController::class, 'destroy'])
 Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
 Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
 Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
+Route::post('/kafaActivty/storeAttendance/{id}', [ManageActivityController::class, 'storeAttendance'])->name('storeAttendance');
 
 // View Payment Module
 // Only KAFA Admin can access this route

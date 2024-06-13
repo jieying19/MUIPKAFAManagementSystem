@@ -28,47 +28,65 @@
                         <label for="comment" class="block text-gray-700 text-sm font-bold mb-2">Activity Comment:</label>
                         <p>{{ $kafaActivity->activity_comment }}</p>
                     </div>
-                    
+                    <div>
+                    @if (auth()->user()->role == 'parent')
                     <table class="table-auto w-full text-center">
                         <thead>
-                            @foreach ($students as $student)
-                                <tr class="bg-gray-200 border-y-8 border-gray">
+                            <tr class="bg-gray-200 border-y-8 border-gray">
                                 <td class="py-2 px-4">Child Number</td>
                                 <td class="py-2 px-4">Child Name</td>
                                 <td class="py-2 px-4">Child Age</td>
-                                <td class="py-2 px-4">button</td>
+                                <td class="py-2 px-4">Button</td>
                             </tr>
-                        <thead>
-                        <tbody>                            
-                                @endforeach
+                        </thead>
+                        <tbody>
+                            @foreach ($students as $student)
+                            <tr class="bg-gray-200 border-y-8 border-white">
+                                <td class="py-2 px-4">{{ $student->student_id }}</td>
+                                <td class="py-2 px-4">{{ $student->student_name }}</td>
+                                <td class="py-2 px-4">{{ $student->student_age }}</td>
+                                <td class="py-2 px-4">
+                                    @if ($attendances->where('student_id', $student->student_id)->isEmpty())
+                                    <form action="{{ route('storeAttendance', $kafaActivity->id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="student_id" value="{{ $student->student_id }}">
+                                        <input type="hidden" name="activity_id" value="{{ $kafaActivity->id }}">
+                                        <input type="submit" value="Participate" class="btn bg-emerald-500/80 px-3 py-2 rounded-xl hover:bg-emerald-400/80">
+                                    </form>
+                                    @else
+                                    <button class="btn bg-gray-400 px-3 py-2 rounded-xl cursor-not-allowed" disabled>Participate</button>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     
-                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                                <div class="p-6 bg-white border-b border-gray-200">                                   
-                                    <div class="mb-4">
-                                    @if (auth()->user()->role == 'parent')
-                                    <form id="participationForm"
-                                        action="{{ route('viewKafaActivity', $kafaActivity->id) }}" method="POST">
-                                        @csrf
-                                        <div class="form-group row m-3">
-                                            <label for="participate" class="col-sm-12 col-form-label"><b><u>Participation</u></b></label>
-                                            <select class="form-control" id="participate" name="student_id">
-                                                <option value="" selected disabled>Participate as</option>
-                                                @foreach ($students as $student)                                   
-                                                    <option value="{{ $student->student_id }}">{{ $student->student_name }}</option>                                 
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </form>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                    @elseif (auth()->user()->role == 'KAFAadmin')
+                    <table class="table-auto w-full text-center">
+                        <thead>
+                            <tr class="bg-gray-200 border-y-8 border-gray">
+                                <td class="py-2 px-4">Child Name</td>
+                                <td class="py-2 px-4">Child Age</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($attendances as $attendance)
+
+                    <tr class="bg-gray-200 border-y-8 border-white">
+                        <td class="py-2 px-4">{{ $attendance->student->student_name }}</td>
+                        <td class="py-2 px-4">{{ $attendance->student->student_age }}</td>
+                    </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @endif
                 </div>
-                <div class="px-4">
-                    <a href="{{ route('kafaActivity') }}" class="btn border border-slate-400 bg-red-400 px-6 py-2 rounded-xl hover:bg-gray-300 w-full">    Back    </a>
+                
+                <div class="flex justify-center px-4 py-2">
+                    <div class="px-4">
+                        <a href="{{ route('kafaActivity') }}" class="btn border border-slate-400 bg-red-400 px-6 py-2 rounded-xl hover:bg-gray-300 w-full">Back</a>
+                    </div>
                 </div>
             </div>
         </div>

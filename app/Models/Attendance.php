@@ -9,6 +9,7 @@ class Attendance extends Model
 {
     use HasFactory;
 
+    protected $table = 'attendance';
     protected $fillable = [
         'activity_id',
         'student_id',
@@ -16,7 +17,7 @@ class Attendance extends Model
     
     public function student() //Foreign key
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id');
     }
 
     public function activity() //Foreign key
