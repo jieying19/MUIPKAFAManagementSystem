@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ManageActivityEntity;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class ManageActivityController extends Controller
@@ -48,7 +49,9 @@ class ManageActivityController extends Controller
     public function show($id)
     {
         $kafaActivity = ManageActivityEntity::find($id);
-        return view('ManageKafaActivity.viewKafaActivityForm', compact('kafaActivity'));
+
+        $students = Student::where('id', auth()->user()->id)->get(); //Get user's student objects
+        return view('ManageKafaActivity.viewKafaActivityForm', compact('kafaActivity', 'students'));
     }
 
     /**

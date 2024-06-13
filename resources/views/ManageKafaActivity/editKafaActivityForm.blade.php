@@ -1,5 +1,5 @@
 <x-app-layout>
-@if (auth()->user()->role != 'KAFAadmin' && auth()->user()->role != 'Teacher')
+@if (auth()->user()->role != 'KAFAadmin' && auth()->user()->role != 'teacher')
     {{ abort(403, 'Unauthorized action.') }}
 @endif    
     {{-- Title --}}

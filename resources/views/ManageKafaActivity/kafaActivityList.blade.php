@@ -30,6 +30,17 @@
                             <td class="py-2 px-4">{{ $kafaActivity->activity_dateTime }}</td>
                             <td class="py-2 px-4">{{ $kafaActivity->activity_studentNum }}</td>
                             <td class="flex justify-center">
+                                @if (auth()->user()->role != 'KAFAadmin' && auth()->user()->role != 'teacher')
+                                <a href="{{ route('viewKafaActivity', $kafaActivity->id) }}">
+                                    <svg id="view-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 m-2"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-.274.977-.67 1.897-1.172 2.744-.504.848-1.112 1.64-1.81 2.334A10.992 10.992 0 0112 19c-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </a>
+                                @else
                                 <a href="{{ route('editKafaActivity', $kafaActivity->id) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-400 m-2"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -61,6 +72,7 @@
                                         </svg>
                                     </button>
                                 </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

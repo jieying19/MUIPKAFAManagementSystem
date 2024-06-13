@@ -49,6 +49,10 @@ Route::get('/dutyRoster/edit/{id}', [DutyRosterController::class, 'edit'])->name
 Route::post('/dutyRoster/update/{id}', [DutyRosterController::class, 'update'])->name('updateDuty');
 Route::post('/dutyRoster/delete/{id}', [DutyRosterController::class, 'destroy'])->name('deleteDuty');
 
+Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
+Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
+Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
+
 // View Payment Module
 // Only KAFA Admin can access this route
 Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
@@ -64,16 +68,14 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     Route::get('/StudentResultList', [StudentResultController::class, 'index'])->name('StudentResult');
 });
 
-// View Payment Module
 // Only Parent can access this route
 Route::middleware('role:parent')->group(function () {
+    // View Payment Module
     Route::get('/viewPayment', [PaymentController::class, 'userIndex'])->name('payment.userIndex')->middleware('role:parent');
     Route::post('/viewPayment/insert/{userName}', [PaymentController::class, 'updateUser'])->name('payment.userInsert');
 
    // Manage Kafa Activity Module
-   Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
-   Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
-   Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
+//    Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
 });
 
 //Report Module
@@ -85,13 +87,13 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
 
    // Manage Kafa Activity Module
-   Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
+//    Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
    Route::get('/kafaActivty/add', [ManageActivityController::class, 'create'])->name('addKafaActivity');
    Route::post('/kafaActivty/store', [ManageActivityController::class, 'store'])->name('storeKafaActivity');
    Route::get('/kafaActivty/edit/{id}', [ManageActivityController::class, 'edit'])->name('editKafaActivity');
    Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
    Route::post('/kafaActivty/delete/{id}', [ManageActivityController::class, 'destroy'])->name('deleteKafaActivity');
-   Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
+//    Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
 });
 
 // Announcement & User Module

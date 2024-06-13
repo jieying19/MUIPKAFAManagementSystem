@@ -22,7 +22,11 @@ return new class extends Migration
             $table->string('student_birthPlace', 30);
             $table->string('student_homeAddress',50);
             $table->enum('student_regStatus',["Pending","Approved","Rejected"])->nullable();
+            
+            $table->foreignId('id')->references('id')->on('users')->onDelete('cascade');
+            
             $table->timestamps();
+
         });
     }
 

@@ -29,22 +29,24 @@
                         <p>{{ $kafaActivity->activity_comment }}</p>
                     </div>
                     <div class="mb-4">
-                        {{-- @if (auth()->user()->role == 'user')
+
+                        @if (auth()->user()->role == 'parent')
                     <form id="participationForm"
-                        action="{{ route('manageActivity.participate', ['activity' => $activity['id']]) }}" method="POST">
+                        action="{{ route('viewKafaActivity', $kafaActivity->id) }}" method="POST">
                         @csrf
                         <div class="form-group row m-3">
                             <label for="participate" class="col-sm-12 col-form-label"><b><u>Participation</u></b></label>
                             <select class="form-control" id="participate" name="student_id">
                                 <option value="" selected disabled>Participate as</option>
                                 @foreach ($students as $student)
-                                    @if ($student->user_id == Auth::id())
-                                        <option value="{{ $student->id }}">{{ $student->stdName }}</option>
-                                    @endif
+                                    
+                                        <option value="{{ $student->student_id }}">{{ $student->student_name }}</option>
+                                    
                                 @endforeach
                             </select>
                         </div>
-                    </form> --}}
+                    </form>
+                    @endif
                         {{-- @if (auth()->user()->role == 'KAFAadmin')
                         
                                 <div class="form-group row m-3">
@@ -54,7 +56,7 @@
             
                                     </select>
                                 </div>
-                        @endif     --}}
+                        @endif    
                     </div>
                     <div class="flex justify-center px-4 py-2">
                         {{-- <div class="px-4">

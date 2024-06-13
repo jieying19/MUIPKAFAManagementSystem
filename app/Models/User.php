@@ -65,4 +65,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(ManageActivityEntity::class, 'attendance', 'user_id', 'activity_id');
     }
+
+    public function students(){
+        return $this->hasMany(Student::class,'id','id');
+    }
 }

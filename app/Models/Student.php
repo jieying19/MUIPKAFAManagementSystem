@@ -16,12 +16,17 @@ class Student extends Model
     protected $fillable = [
         'student_name',
         'student_age',
+        'student_gender',
         'student_birthRegNo',
         'student_ic',
         'student_health',
         'student_birthPlace',
         'student_homeAddress',
         'student_regStatus',
+        'id'
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class,'id');
+    }
 }
