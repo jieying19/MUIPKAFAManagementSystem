@@ -143,7 +143,7 @@
                     </svg>
                 </div>
                 <div>
-                    STUDENT RESULT MANAGEMENT
+                    DUTY ROSTER
                 </div>
             </x-nav-item>
         </a>
