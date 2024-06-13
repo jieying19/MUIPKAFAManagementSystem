@@ -33,7 +33,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         if (Auth::user()->role != 'KAFAadmin') {
-            return view('dashboard');
+            return redirect('/dashboard/kafaActivty');
         }
         else {
             return redirect("/dashboard/kafaActivty");
