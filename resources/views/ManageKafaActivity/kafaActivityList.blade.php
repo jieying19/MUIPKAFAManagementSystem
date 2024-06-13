@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="h-full">
         <div class="font-extrabold text-xl mt-2">
-            Kafa Activity
+            KAFA Activity
         </div>
         <div class="flex justify-end w-full mb-5 relative right-0">
             @include('components.searchbar')
@@ -15,11 +15,11 @@
             <table class="table-auto w-full text-center">
                 <thead>
                     <tr>
-                        <th class="py-2">ID</th>
-                        <th class="py-2">TITLE</th>
-                        <th class="py-2">DATETIME</th>
-                        <th class="py-2">STUDENT NUMBER</th>
-                        <th class="py-2">ACTION</th>
+                        <th class="py-2">Activity Number</th>
+                        <th class="py-2">Activity Name</th>
+                        <th class="py-2">Activity Date</th>
+                        <th class="py-2">Student Number</th>
+                        <th class="py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +35,15 @@
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    </svg>
+                                </a>
+                                <a href="{{ route('editKafaActivity', $kafaActivity->id) }}">
+                                    <svg id="view-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400 m-2"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-.274.977-.67 1.897-1.172 2.744-.504.848-1.112 1.64-1.81 2.334A10.992 10.992 0 0112 19c-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </a>
                                 <script>
