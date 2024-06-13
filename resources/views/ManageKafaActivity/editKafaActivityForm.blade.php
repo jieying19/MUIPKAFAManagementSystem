@@ -38,7 +38,7 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Activity Age for Student:</label>
+                            <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Activity Suitable Age for Student:</label>
                             <input type="number" name="activity_studentAge" id="age" class="form-input rounded-md shadow-sm mt-1 block w-full"
                                    value="{{ old('activity_studentAge', $kafaActivity->activity_studentAge) }}" required min="1" max="120"/>
                             @error('age')

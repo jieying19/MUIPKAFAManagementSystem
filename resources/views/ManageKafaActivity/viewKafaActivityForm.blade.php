@@ -21,7 +21,7 @@
                         <p>{{ \Carbon\Carbon::parse($kafaActivity->activity_dateTime)->format('Y-m-d H:i') }}</p>
                     </div>
                     <div class="mb-4">
-                        <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Activity Age for Student:</label>
+                        <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Activity Suitable Age for Student:</label>
                         <p>{{ $kafaActivity->activity_studentAge }}</p>
                     </div>                        
                     <div class="mb-4">

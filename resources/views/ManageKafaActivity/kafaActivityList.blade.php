@@ -20,7 +20,9 @@
                         <th class="py-2">Activity Number</th>
                         <th class="py-2">Activity Name</th>
                         <th class="py-2">Activity Date</th>
+                        @if (auth()->user()->role == 'KAFAadmin' || auth()->user()->role == 'teacher')
                         <th class="py-2">Student Number</th>
+                        @endif
                         <th class="py-2">Action</th>
                     </tr>
                 </thead>
@@ -30,7 +32,9 @@
                             <td class="py-2 px-4">{{ $activity->id }}</td>
                             <td class="py-2 px-4 text-center">{{ $activity->activity_name }}</td>
                             <td class="py-2 px-4">{{ $activity->activity_dateTime }}</td>
+                            @if (auth()->user()->role == 'KAFAadmin' || auth()->user()->role == 'teacher')
                             <td class="py-2 px-4">{{ $studentCounts[$activity->id] }}</td> <!-- Use correct student count -->
+                            @endif
                             <td class="flex justify-center">
                                 @if (auth()->user()->role != 'KAFAadmin' && auth()->user()->role != 'teacher')
                                 <a href="{{ route('viewKafaActivity', $activity->id) }}">
