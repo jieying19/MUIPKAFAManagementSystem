@@ -13,11 +13,11 @@ use App\Http\Controllers\DutyRosterController;
 // Change this to change the default page
 Route::get('/', function () {
     if (Auth::check()) {
-        if (Auth::user()->role != 'admin') {
+        if (Auth::user()->role != 'KAFAadmin') {
             return redirect('/dashboard');
         }
         else {
-            return redirect("/dashboard/announcements");
+            return redirect("/dashboard/kafaActivty");
         }
     } else {
         return redirect()->route('login');
@@ -31,11 +31,11 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        if (Auth::user()->role != 'admin') {
+        if (Auth::user()->role != 'KAFAadmin') {
             return view('dashboard');
         }
         else {
-            return redirect("/dashboard/announcements");
+            return redirect("/dashboard/kafaActivty");
         }
     })->name('dashboard');
 });
@@ -47,15 +47,12 @@ Route::post('/dutyRoster/store', [DutyRosterController::class, 'store'])->name('
 Route::get('/dutyRoster/edit/{id}', [DutyRosterController::class, 'edit'])->name('editDuty');
 Route::post('/dutyRoster/update/{id}', [DutyRosterController::class, 'update'])->name('updateDuty');
 Route::post('/dutyRoster/delete/{id}', [DutyRosterController::class, 'destroy'])->name('deleteDuty');
-   
-// Payment Module
-// Only Cashier can access this route
 
 // View Payment Module
-// Only Admin can access this route
-Route::middleware('role:admin')->group(function () {
+// Only KAFA Admin can access this route
+Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     // View list of payments
-    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index')->middleware('role:admin');
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index')->middleware('role:KAFAadmin,MUIPadmin');
     Route::get('/payment/create', [PaymentController::class, 'create'])->name('payment.create');
     Route::post('/payment/insert', [PaymentController::class, 'insert'])->name('payment.insert');
     Route::get('/payment/edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
@@ -64,15 +61,15 @@ Route::middleware('role:admin')->group(function () {
 });
 
 // View Payment Module
-// Only User/Cashier can access this route
-Route::middleware('role:cashier')->group(function () {
-    Route::get('/viewPayment', [PaymentController::class, 'userIndex'])->name('payment.userIndex')->middleware('role:cashier');
+// Only Parent can access this route
+Route::middleware('role:parent')->group(function () {
+    Route::get('/viewPayment', [PaymentController::class, 'userIndex'])->name('payment.userIndex')->middleware('role:parent');
     Route::post('/viewPayment/insert/{userName}', [PaymentController::class, 'updateUser'])->name('payment.userInsert');
 });
 
 //Report Module
-// Only Admin and Coordinator can access this route
-Route::middleware('role:admin,coordinator')->group(function () {
+// Only KAFA Admin and MUIP Admin can access this route
+Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::post('/report', [ReportController::class, 'index'])->name('report');
     Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
@@ -88,8 +85,8 @@ Route::middleware('role:admin,coordinator')->group(function () {
 });
 
 // Announcement & User Module
-// Only Admin can access this route
-Route::middleware('role:admin')->group(function () {
+// Only KAFA Admin & MUIP Admin can access this route
+Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     // Announcement Module
     Route::get('/dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcement');
     Route::get('/announcements/add', [AnnouncementController::class, 'create'])->name('addAnnouncement');
