@@ -1,7 +1,7 @@
 <nav class="relative w-1/6 px-4 pt-8 pb-4 left-0 top-0 overflow-auto" style="background-color: #0C1446;">
     <ul class="space-y-3">
         {{-- Dashboard --}}
-        @if (Auth::user()->role != 'admin')
+        @if (Auth::user()->role != 'KAFAadmin')
         <a href="{{ route('announcementList') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -19,7 +19,7 @@
         @endif
 
         {{-- Edit Announcement --}}
-        @if (Auth::user()->role == 'admin')
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
         <a href="{{ route('announcement') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -37,7 +37,7 @@
         @endif
 
         {{-- Kafa Activity --}}
-        @if (Auth::user()->role == 'admin'|| Auth::user()->role == 'coordinator')
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
         <a href="{{ route('kafaActivity') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -55,8 +55,8 @@
         @endif
 
         {{-- User List --}}
-        {{-- Only Admin can access this module --}}
-        @if (Auth::user()->role == 'admin')
+        {{-- Only KAFA Admin can access this module --}}
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
         <a href="{{ route('user') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -74,8 +74,8 @@
         @endif
 
         {{-- Check Payment --}}
-        {{-- Only Admin and Coordinator can access this module --}}
-        @if (Auth::user()->role == 'admin' || Auth::user()->role == 'coordinator')
+        {{-- Only KAFA Admin and MUIP Admin can access this module --}}
+        @if (Auth::user()->role == 'KAFAadmin' || Auth::user()->role == 'MUIPadmin')
         <a href="{{ route('payment.index') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -93,8 +93,8 @@
         @endif
 
         {{-- Check Payment --}}
-        {{-- Only Cashier can access this module --}}
-        @if (Auth::user()->role == 'cashier')
+        {{-- Only Parent can access this module --}}
+        @if (Auth::user()->role == 'parent')
         <a href="{{ route('payment.userIndex') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -112,8 +112,8 @@
         @endif
 
         {{-- Report --}}
-        {{-- Only Admin and Coordinator can access this module --}}
-        @if (Auth::user()->role == 'admin' || Auth::user()->role == 'coordinator')
+        {{-- Only KAFA Admin and MUIP Admin can access this module --}}
+        @if (Auth::user()->role == 'KAFAadmin' || Auth::user()->role == 'MUIPadmin')
         <a href="{{ route('report') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -130,10 +130,10 @@
         </a>
         @endif
 
-        {{-- Student --}}
+        {{-- Duty Roster --}}
         {{-- Only Admin and Cashier can access this module --}}
         @if (Auth::user()->role == 'admin' || Auth::user()->role == 'cashier')
-        <a href="{{ route('ManageStudentRegistration.StudentRegistrationList') }}">
+        <a href="{{ route('DutyRoster') }}">
             <x-nav-item>
                 <div class="self-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"

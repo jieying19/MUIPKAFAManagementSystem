@@ -14,11 +14,20 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => "Admin",
+            'name' => "KAFA",
             'matric_id' => "CB19000",
             'phone_num' => "0123456789",
-            'role' => "admin",
-            'email' => "admin@test",
+            'role' => "KAFAadmin",
+            'email' => "kafa@test",
+            'password' => bcrypt("test"), // password
+        ]);
+
+        User::factory()->create([
+            'name' => "MUIP",
+            'matric_id' => "CB19000",
+            'phone_num' => "0123456789",
+            'role' => "MUIPadmin",
+            'email' => "muip@test",
             'password' => bcrypt("test"), // password
         ]);
         
@@ -26,7 +35,7 @@ class UserSeeder extends Seeder
             'name' => "Wan",
             'matric_id' => "CB21042",
             'phone_num' => "0123456789",
-            'role' => "cashier",
+            'role' => "parent",
             'email' => "wan@test",
             'password' => bcrypt("test"), // password
         ]);
@@ -35,7 +44,7 @@ class UserSeeder extends Seeder
             'name' => "Junta",
             'matric_id' => "CB21001",
             'phone_num' => "0123456789",
-            'role' => "cashier",
+            'role' => "parent",
             'email' => "junta@test",
             'password' => bcrypt("test"), // password
         ]);
@@ -44,7 +53,7 @@ class UserSeeder extends Seeder
             'name' => "Abby",
             'matric_id' => "CB21002",
             'phone_num' => "0123456789",
-            'role' => "cashier",
+            'role' => "parent",
             'email' => "abby@test",
             'password' => bcrypt("test"), // password
         ]);
@@ -53,17 +62,8 @@ class UserSeeder extends Seeder
             'name' => "Jie Ying",
             'matric_id' => "CB21003",
             'phone_num' => "0123456789",
-            'role' => "cashier",
+            'role' => "parent",
             'email' => "jie@test",
-            'password' => bcrypt("test"), // password
-        ]);
-        
-        User::factory()->create([
-            'name' => "Coordinator",
-            'matric_id' => "CB19002",
-            'phone_num' => "0123456789",
-            'role' => "coordinator",
-            'email' => "coordinator@test",
             'password' => bcrypt("test"), // password
         ]);
     }
