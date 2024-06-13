@@ -99,13 +99,6 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
 // Announcement & User Module
 // Only KAFA Admin & MUIP Admin can access this route
 Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
-    // Announcement Module
-    Route::get('/dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcement');
-    Route::get('/announcements/add', [AnnouncementController::class, 'create'])->name('addAnnouncement');
-    Route::post('/announcements/store', [AnnouncementController::class, 'store'])->name('storeAnnouncement');
-    Route::get('/announcements/edit/{id}', [AnnouncementController::class, 'edit'])->name('editAnnouncement');
-    Route::post('/announcements/update/{id}', [AnnouncementController::class, 'update'])->name('updateAnnouncement');
-    Route::post('/announcements/delete/{id}', [AnnouncementController::class, 'destroy'])->name('deleteAnnouncement');
 
     // User Module
     Route::get('/users', [UserController::class, 'index'])->name('user');
@@ -115,6 +108,3 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     Route::post('/users/update', [UserController::class, 'update'])->name('updateUser');
     Route::delete('/users/delete', [UserController::class, 'destroy'])->name('deleteUser');
 });
-
-// All user can access this route
-Route::get('/announcementList', [AnnouncementController::class, 'announcementList'])->name('announcementList');

@@ -1,4 +1,4 @@
 <x-app-layout>
     {{-- Redirect to announcementList --}}
-    <script>window.location = "/announcementList";</script>
+    <script>window.location = "/login";</script>
 </x-app-layout>
