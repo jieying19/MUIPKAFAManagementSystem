@@ -75,6 +75,10 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
     Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
 
+
+    // Manage student result
+    Route::get('/dashboard/studentResult', [ManageActivityController::class, 'index'])->name('kafaActivity');
+
    // Manage Kafa Activity Module
    Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
    Route::get('/kafaActivty/add', [ManageActivityController::class, 'create'])->name('addKafaActivity');
