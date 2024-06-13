@@ -10,6 +10,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\ManageActivityController;
 use App\Http\Controllers\DutyRosterController;
+use App\Http\Controllers\StudentResultController;
 
 // Change this to change the default page
 Route::get('/', function () {
@@ -91,9 +92,6 @@ Route::middleware('role:admin,coordinator')->group(function () {
     Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
 
 
-    // Manage student result
-    Route::get('/dashboard/studentResult', [ManageActivityController::class, 'index'])->name('kafaActivity');
-
    // Manage Kafa Activity Module
    Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
    Route::get('/kafaActivty/add', [ManageActivityController::class, 'create'])->name('addKafaActivity');
@@ -129,8 +127,11 @@ Route::get('/announcementList', [AnnouncementController::class, 'announcementLis
 
 //student Result
 
-Route::middleware('role:admin')->group(function () {
-   
+Route::middleware('role:KAFAadmin')->group(function () {
+
+    // Manage student result
+    Route::get('/dashboard/studentResult', [StudentResultController::class, 'index'])->name('studentResultList');
+
     Route::get('/dashboard/announcements', [AnnouncementController::class, 'index'])->name('announcement');
     Route::get('/announcements/add', [AnnouncementController::class, 'create'])->name('addAnnouncement');
     Route::post('/announcements/store', [AnnouncementController::class, 'store'])->name('storeAnnouncement');
@@ -141,7 +142,7 @@ Route::middleware('role:admin')->group(function () {
 
 //Report Module
 // KAFA Admin , teacher and MUIP admin- change the role to ..
-Route::middleware('role:admin,coordinator')->group(function () {
+Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::post('/report', [ReportController::class, 'index'])->name('report');
     Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
