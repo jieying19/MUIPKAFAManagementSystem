@@ -19,7 +19,7 @@
         @endif
 
         {{-- Edit Announcement --}}
-        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin'|| Auth::user()->role == 'teacher')
         <a href="{{ route('announcement') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -37,7 +37,7 @@
         @endif
 
         {{-- Kafa Activity --}}
-        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin'|| Auth::user()->role == 'teacher')
         <a href="{{ route('kafaActivity') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -56,7 +56,7 @@
 
         {{-- User List --}}
         {{-- Only KAFA Admin can access this module --}}
-        @if (Auth::user()->role == 'KAFAadmin'|| Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin')
         <a href="{{ route('user') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -113,7 +113,7 @@
 
         {{-- Report --}}
         {{-- Only KAFA Admin and MUIP Admin can access this module --}}
-        @if (Auth::user()->role == 'KAFAadmin' || Auth::user()->role == 'MUIPadmin')
+        @if (Auth::user()->role == 'KAFAadmin' || Auth::user()->role == 'MUIPadmin'|| Auth::user()->role == 'teacher')
         <a href="{{ route('report') }}">
             <x-nav-item>
                 <div class="self-center">
@@ -125,25 +125,6 @@
                 </div>
                 <div>
                     REPORT
-                </div>
-            </x-nav-item>
-        </a>
-        @endif
-
-        {{-- Duty Roster --}}
-        {{-- Only KAFAadmin can access this module --}}
-        @if (Auth::user()->role == 'KAFAadmin')
-        <a href="{{ route('DutyRoster') }}">
-            <x-nav-item>
-                <div class="self-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <div>
-                    DUTY ROSTER
                 </div>
             </x-nav-item>
         </a>

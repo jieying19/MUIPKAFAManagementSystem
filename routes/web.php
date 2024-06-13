@@ -31,7 +31,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        if (Auth::user()->role != 'KAFAadmin') {
+        if (Auth::user()->role != 'KAFAadmin'||Auth::user()->role != 'MUIPadmin'||Auth::user()->role != 'teacher') {
             return view('dashboard');
         }
         else {
@@ -39,14 +39,6 @@ Route::middleware([
         }
     })->name('dashboard');
 });
-
-// Duty Roster  Module
-Route::get('/dutyRoster', [DutyRosterController::class, 'index'])->name('DutyRoster');
-Route::get('/dutyRoster/add', [DutyRosterController::class, 'create'])->name('addDuty');
-Route::post('/dutyRoster/store', [DutyRosterController::class, 'store'])->name('storeDuty');
-Route::get('/dutyRoster/edit/{id}', [DutyRosterController::class, 'edit'])->name('editDuty');
-Route::post('/dutyRoster/update/{id}', [DutyRosterController::class, 'update'])->name('updateDuty');
-Route::post('/dutyRoster/delete/{id}', [DutyRosterController::class, 'destroy'])->name('deleteDuty');
 
 // View Payment Module
 // Only KAFA Admin can access this route
@@ -69,7 +61,7 @@ Route::middleware('role:parent')->group(function () {
 
 //Report Module
 // Only KAFA Admin and MUIP Admin can access this route
-Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
+Route::middleware('role:KAFAadmin,MUIPadmin,teacher')->group(function () {
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     Route::post('/report', [ReportController::class, 'index'])->name('report');
     Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
