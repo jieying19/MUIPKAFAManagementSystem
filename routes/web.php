@@ -8,6 +8,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentRegistrationController;
+use App\Http\Controllers\ManageActivityController;
+use App\Http\Controllers\DutyRosterController;
 
 // Change this to change the default page
 Route::get('/', function () {
@@ -53,6 +55,16 @@ Route::post('/studentRegistrationReport', [StudentRegistrationController::class,
 Route::get('/studentRegistrationReport/csv', [StudentRegistrationController::class, 'exportStudentCSV'])->name('student.csv');
 Route::get('/studentRegistrationReport/data/{range}', [StudentRegistrationController::class, 'getAgeData'])->name('ManageStudentAgeData');
 
+// Duty Roster  Module
+Route::get('/dutyRoster', [DutyRosterController::class, 'index'])->name('DutyRoster');
+Route::get('/dutyRoster/add', [DutyRosterController::class, 'create'])->name('addDuty');
+Route::post('/dutyRoster/store', [DutyRosterController::class, 'store'])->name('storeDuty');
+Route::get('/dutyRoster/edit/{id}', [DutyRosterController::class, 'edit'])->name('editDuty');
+Route::post('/dutyRoster/update/{id}', [DutyRosterController::class, 'update'])->name('updateDuty');
+Route::post('/dutyRoster/delete/{id}', [DutyRosterController::class, 'destroy'])->name('deleteDuty');
+   
+// Payment Module
+// Only Cashier can access this route
 
 // View Payment Module
 // Only Admin can access this route
@@ -80,6 +92,14 @@ Route::middleware('role:admin,coordinator')->group(function () {
     Route::post('/report', [ReportController::class, 'index'])->name('report');
     Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
     Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
+
+   // Manage Kafa Activity Module
+   Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
+   Route::get('/kafaActivty/add', [ManageActivityController::class, 'create'])->name('addKafaActivity');
+   Route::post('/kafaActivty/store', [ManageActivityController::class, 'store'])->name('storeKafaActivity');
+   Route::get('/kafaActivty/edit/{id}', [ManageActivityController::class, 'edit'])->name('editKafaActivity');
+   Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
+   Route::post('/kafaActivty/delete/{id}', [ManageActivityController::class, 'destroy'])->name('deleteKafaActivity');
 });
 
 // Announcement & User Module
