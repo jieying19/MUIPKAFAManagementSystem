@@ -137,6 +137,7 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/announcements/edit/{id}', [AnnouncementController::class, 'edit'])->name('editAnnouncement');
     Route::post('/announcements/update/{id}', [AnnouncementController::class, 'update'])->name('updateAnnouncement');
     Route::post('/announcements/delete/{id}', [AnnouncementController::class, 'destroy'])->name('deleteAnnouncement');
+});
 
 //Report Module
 // KAFA Admin , teacher and MUIP admin- change the role to ..
