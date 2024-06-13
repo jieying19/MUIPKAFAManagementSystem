@@ -51,7 +51,7 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{ $student->student_id }}">
                                         <input type="hidden" name="activity_id" value="{{ $kafaActivity->id }}">
-                                        <input type="submit" value="Participate" class="btn bg-emerald-500/80 px-3 py-2 rounded-xl hover:bg-emerald-400/80">
+                                        <input type="submit" value="Attend" class="btn bg-emerald-500/80 px-3 py-2 rounded-xl hover:bg-emerald-400/80">
                                     </form>
                                     @else
                                     <button class="btn bg-gray-400 px-3 py-2 rounded-xl cursor-not-allowed" disabled>Participate</button>
