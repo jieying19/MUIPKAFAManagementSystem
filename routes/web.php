@@ -5,10 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ManageActivityController;
-use App\Http\Controllers\DutyRosterController;
 use App\Http\Controllers\StudentResultController;
 
 // Change this to change the default page
@@ -41,14 +38,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-// Duty Roster  Module
-Route::get('/dutyRoster', [DutyRosterController::class, 'index'])->name('DutyRoster');
-Route::get('/dutyRoster/add', [DutyRosterController::class, 'create'])->name('addDuty');
-Route::post('/dutyRoster/store', [DutyRosterController::class, 'store'])->name('storeDuty');
-Route::get('/dutyRoster/edit/{id}', [DutyRosterController::class, 'edit'])->name('editDuty');
-Route::post('/dutyRoster/update/{id}', [DutyRosterController::class, 'update'])->name('updateDuty');
-Route::post('/dutyRoster/delete/{id}', [DutyRosterController::class, 'destroy'])->name('deleteDuty');
-
+// Manage Kafa Activity Module
 Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
 Route::post('/kafaActivty/update/{id}', [ManageActivityController::class, 'update'])->name('updateKafaActivity');
 Route::get('/kafaActivty/view/{id}', [ManageActivityController::class, 'show'])->name('viewKafaActivity');
