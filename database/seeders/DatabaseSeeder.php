@@ -30,11 +30,37 @@ class DatabaseSeeder extends Seeder
             'student_name' => 'Taib',
             'student_age' => '12',
             'student_gender' => 'male',
-            'student_birthRegNo' => 'jhgjhg',
-            'student_ic' => 'jhgjhg',
-            'student_health' => 'jhgjhg',
-            'student_birthPlace' => 'jhgjhg',
-            'student_homeAddress' => 'jhgjhg',
+            'student_birthRegNo' => '123',
+            'student_ic' => '12414124',
+            'student_health' => 'good',
+            'student_birthPlace' => 'Kedah',
+            'student_homeAddress' => 'Kedah',
+            'student_regStatus' => 'Approved',
+            'id' => '4'
+        ]);
+
+        DB::table('students')->insert([
+            'student_name' => 'Afiq',
+            'student_age' => '11',
+            'student_gender' => 'male',
+            'student_birthRegNo' => '1234',
+            'student_ic' => '421412414',
+            'student_health' => 'good',
+            'student_birthPlace' => 'Perak',
+            'student_homeAddress' => 'Perak',
+            'student_regStatus' => 'Approved',
+            'id' => '4'
+        ]);
+
+        DB::table('students')->insert([
+            'student_name' => 'Fatimah',
+            'student_age' => '14',
+            'student_gender' => 'female',
+            'student_birthRegNo' => '1214',
+            'student_ic' => '442312414',
+            'student_health' => 'good',
+            'student_birthPlace' => 'Pahang',
+            'student_homeAddress' => 'Pahang',
             'student_regStatus' => 'Approved',
             'id' => '4'
         ]);
@@ -46,6 +72,16 @@ class DatabaseSeeder extends Seeder
             'activity_dateTime' => '2024-06-13 14:30:00',
             'activity_studentAge' => '12',
             'activity_studentNum' => '6',
+            'activity_comment' => 'Budget'
+        ]);
+
+        DB::table('ManageActivityEntity')->insert([
+            'id' => '2',
+            'activity_name' => 'Reading Compettion',
+            'activity_desc' => 'Al-Quran reading',
+            'activity_dateTime' => '2024-07-11 10:30:00',
+            'activity_studentAge' => '14',
+            'activity_studentNum' => '1',
             'activity_comment' => ''
         ]);
     }
