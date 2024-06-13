@@ -54,7 +54,7 @@ class StudentResultController extends Controller
     {
         $result = StudentResult::findOrFail($id);
         $students = Student::all();
-        $subjects = Subject::all();
+        // $subjects = Subject::all();
         return view('studentResults.edit_student_result', compact('result', 'students', 'subjects'));
     }
 
