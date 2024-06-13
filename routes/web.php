@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ManageActivityController;
 use App\Http\Controllers\DutyRosterController;
+use App\Http\Controllers\StudentResultController;
 
 // Change this to change the default page
 Route::get('/', function () {
@@ -58,6 +59,9 @@ Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
     Route::get('/payment/edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
     Route::post('/payment/update/{id}', [PaymentController::class, 'update'])->name('payment.update');
     Route::post('/payment/delete/{id}', [PaymentController::class, 'delete'])->name('payment.delete');
+
+    // Manage student result
+    Route::get('/StudentResultList', [StudentResultController::class, 'index'])->name('StudentResult');
 });
 
 // View Payment Module
