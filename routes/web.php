@@ -62,7 +62,7 @@ Route::middleware('role:parent')->group(function () {
 
 //Report Module
 // Only Admin and Coordinator can access this route
-Route::middleware('role:admin,coordinator')->group(function () {
+Route::middleware('role:KAFAadmin,MUIPadmin')->group(function () {
 
    // Manage Kafa Activity Module
    Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
