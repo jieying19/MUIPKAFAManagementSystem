@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ManageActivityController;
 use App\Http\Controllers\DutyRosterController;
+use App\Http\Controllers\StudentResultController;
 
 // Change this to change the default page
 Route::get('/', function () {
@@ -60,12 +61,8 @@ Route::middleware('role:parent')->group(function () {
 });
 
 //Report Module
-// Only KAFA Admin and MUIP Admin can access this route
-Route::middleware('role:KAFAadmin,MUIPadmin,teacher')->group(function () {
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
-    Route::post('/report', [ReportController::class, 'index'])->name('report');
-    Route::get('report/data/{range}', [ReportController::class, 'getData'])->name('report.data');
-    Route::get('/report/export', [ReportController::class, 'exportCSV'])->name('csv');
+// Only Admin and Coordinator can access this route
+Route::middleware('role:admin,coordinator')->group(function () {
 
    // Manage Kafa Activity Module
    Route::get('/dashboard/kafaActivty', [ManageActivityController::class, 'index'])->name('kafaActivity');
