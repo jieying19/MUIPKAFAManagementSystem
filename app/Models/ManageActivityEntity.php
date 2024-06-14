@@ -20,7 +20,7 @@ class ManageActivityEntity extends Model
         'activity_comment',
     ];
 
-    public function users()
+    public function users() //One student has many activities
     {
         return $this->belongsToMany(User::class, 'attendance', 'activity_id', 'user_id');
     }

@@ -11,14 +11,14 @@ class ManageActivityController extends Controller
 {
     public function index()
     {
-        $kafaActivity = ManageActivityEntity::all();
+        $kafaActivity = ManageActivityEntity::all(); //Fetches all activities from ManageActivityEntity
         $studentCounts = [];
         
         foreach ($kafaActivity as $activity) {
-            $studentCount = Attendance::where('activity_id', $activity->id)
-                ->select('student_id')
+            $studentCount = Attendance::where('activity_id', $activity->id) //Only retrieve selected activity 
+                ->select('student_id') 
                 ->distinct()
-                ->count('student_id');
+                ->count('student_id'); //count the student number 
             $studentCounts[$activity->id] = $studentCount; // Store count for each activity ID
         }
     
@@ -27,76 +27,71 @@ class ManageActivityController extends Controller
     
     
 
-    public function kafaActivityList()
+    public function kafaActivityList() // Retrieve and display all activities 
     {
         $kafaActivity = ManageActivityEntity::all();
 
         return view('ManageKafaActivity.kafaActivityList', compact('kafaActivity'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+
+    public function create() //Show the form for creating a new resource
     {
         return view('ManageKafaActivity.addKafaActivityForm');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+
+    public function store(Request $request) //Store a newly created resource in storage
     {
         $request->validate([
             'activity_name' => 'required',
             'activity_studentAge' => 'required',
             ]);
-        // dd($request);
+
         ManageActivityEntity::create($request->all());
     
         return redirect()->route('kafaActivity')->with('success', 'Activity added successfully');
     }
 
-    public function storeAttendance(Request $request, $id)
+
+
+    public function storeAttendance(Request $request, $id) //Store a new attendance record for the selected activity
     {
         $request->validate([
             'student_id' => 'required',
             'activity_id' => 'required',
             ]);
+
         Attendance::create($request->all());        
     
         return redirect()->route('kafaActivity')->with('success', 'Activity added successfully');
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-{
-    $kafaActivity = ManageActivityEntity::find($id);
 
-    $attendances = Attendance::where('activity_id', $kafaActivity->id)->get();
+    
 
-    // $allAttendances = Attendance::all();
-    // dd($allAttendances);
-    $students = Student::where('id', auth()->user()->id)->get(); // Assuming parent_id links students to parents
-    return view('ManageKafaActivity.viewKafaActivityForm', compact('kafaActivity', 'students', 'attendances'));
-}
+    public function show($id) //Display the specified activity along with its attendance and related students.
+    {
+        $kafaActivity = ManageActivityEntity::find($id);
+
+        $attendances = Attendance::where('activity_id', $kafaActivity->id)->get();
+
+        $students = Student::where('id', auth()->user()->id)->get(); // Assuming parent_id links students to parents
+        return view('ManageKafaActivity.viewKafaActivityForm', compact('kafaActivity', 'students', 'attendances'));
+    }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+
+    public function edit($id) //Show the form to edit an existing activity
     {
         $kafaActivity = ManageActivityEntity::find($id);
         return view('ManageKafaActivity.editKafaActivityForm', compact('kafaActivity'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
 
-    public function update(Request $request, $id)
+    
+    public function update(Request $request, $id) //Update the specified resource in storage.
     {
         // Retrieve the existing record by its ID
         $kafaActivity = ManageActivityEntity::findOrFail($id);
@@ -107,15 +102,14 @@ class ManageActivityController extends Controller
             'activity_studentAge' => 'required|integer|min:1|max:120',
         ]);
 
-        // Update the record with the new data
+        // Update the specified activity with the new data
         $kafaActivity->update($request->all());
         return redirect()->route('kafaActivity')->with('success', 'Activity updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+
+    
+    public function destroy($id) //Remove the specified activity from database
     {
         $kafaActivity = ManageActivityEntity::find($id);
         $kafaActivity->delete();
