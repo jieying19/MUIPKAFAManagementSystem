@@ -25,11 +25,11 @@
             {{-- Bill Amount --}}
             <div>
                 @php
-                    $test = Auth::user()->name;
+                    $test = Auth::user()->user_name;
                     $payment = $payments->where('userName', $test)->first(); // Example to find payment with ID 1
                 @endphp
                 <p class="text-xl font-bold">Bill Amount</p>
-                <p>{{ Auth::user()->name }}</p>
+                <p>{{ Auth::user()->user_name }}</p>
                 @if ($payment)
                 <p>{{ $payment->userName }}</p>
                 <p>{{ $payment->amountOwed }}</p>
