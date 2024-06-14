@@ -52,7 +52,6 @@ class UserController extends Controller
         // store new user
         $user = new User();
         $user->name = $request->name;
-        $user->matric_id = $request->matric;
         $user->email = $request->email;
         $user->phone_num = $request->phone;
         $user->role = $request->role;
