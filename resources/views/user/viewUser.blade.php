@@ -40,7 +40,7 @@
                         @foreach ($users as $user)
                             <tr class="border-t border-slate-400 bg-gray-100">
                                 <td class="py-2 px-2">{{ $user->id }}</td>
-                                <td class="py-2 px-2">{{ $user->user_name }}</td>
+                                <td class="py-2 px-2">{{ $user->name }}</td>
                                 <td class="py-2 px-2">{{ $user->phone_num }}</td>
                                 <td class="py-2 px-2 flex flex-rol h-auto">
                                     <form action="{{ route('editUser') }}" method="get" class="flex mr-5">

@@ -2,13 +2,26 @@
     <div class="flex flex-col justify-evenly gap-y-3 h-full">
         {{-- Title --}}
         <div class="font-extrabold text-xl mt-2">
-            Manage Users Payment
+            View Bill
         </div>
+
+        <div class="flex justify-end w-full mb-5 relative right-0">
+            <a href="{{ route('debitCreditCardFormPage') }}"
+                class="p-3 mx-3 border border-transparent rounded-xl hover:text-gray-600"
+                style="background-color: #00AEA6;">
+                New Card Payment
+            </a>
+            <a href="{{ route('EWalletFormPage') }}"
+                class="p-3 mx-3 border border-transparent rounded-xl hover:text-gray-600"
+                style="background-color: #00AEA6;">
+                New E-Wallet Payment
+            </a>
+        </div>
+
         {{-- Content --}}
-        <div class="flex flex-col bg-white border border-slate-300 rounded-xl px-5 py-3"
-            style="min-height: 83.333333%; max-height:  83.333333%;">
+        <div class="bg-white border border-slate-300 rounded-xl w-full p-3" style="min-height: 83.333333%; max-height:  83.333333%;">
             <div class="font-bold text-lg">
-                List of Payments
+                    List of Payments Made
             </div>
 
             {{-- Message --}}
@@ -23,56 +36,59 @@
                     {{ session('error') }}
                 </div>
             @endif
-
-            <div class="flex justify-end w-full mb-5 relative right-0">
-            <a href="{{ route('payment.create') }}"
-                class="p-3 mx-3 border border-transparent rounded-xl hover:text-gray-600"
-                style="background-color: #00AEA6;">
-                Add New Payment
-            </a>
-            </div>
-
+        
             {{-- Table --}}
             <div class="mt-5">
                 <div class="mx-2 overflow-y-auto" style="max-height: 30rem;">
                     <table class="min-w-full table-auto">
                         <thead class="sticky top-0 bg-white">
                             <tr>
-                                <th class="text-left py-2 px-2">User Name</th>
-                                <th class="text-left py-2 px-2">amountOwed</th>
-                                <th class="text-left py-2 px-2">amountPayed</th>
-                                <th class="text-left py-2 px-2">paymentMethod</th>
-                                <th class="text-left py-2 px-2">lastPayment</th>
-                                <th class="text-left py-2 px-2">paymentStatus</th>
-                                <th class="text-left py-2 px-2">Operations</th>
+                                <th class="text-left py-2 px-2">Parent ID</th>
+                                <th class="text-left py-2 px-2">Payment Method</th>
+                                <th class="text-left py-2 px-2">Payment Owed</th>
+                                <th class="text-left py-2 px-2">Payment Made</th>
+                                <th class="text-left py-2 px-2">Payment Status</th>
+                                <th class="text-left py-2 px-2">Payment Date</th>
+                                <th class="text-left py-2 px-2">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach ($payments as $payment)
                             <tr class="border-t border-slate-400 bg-gray-100">
-                                <td class="py-2 px-2">{{ $payment->userName }}</td>
-                                <td class="py-2 px-2">{{ $payment->amountOwed }}</td>
-                                <td class="py-2 px-2">{{ $payment->amountPayed }}</td>
-                                <td class="py-2 px-2">{{ $payment->paymentMethod }}</td>
-                                <td class="py-2 px-2">{{ $payment->lastPayment }}</td>
-                                <td class="py-2 px-2">{{ $payment->paymentStatus }}</td>
+                                <td class="py-2 px-2">{{ $payment->parent_id }}</td>
+                                <td class="py-2 px-2">{{ $payment->payment_method }}</td>
+                                <td class="py-2 px-2">500</td> {{--Owed must always be RM500--}}
+                                <td class="py-2 px-2">{{ $payment->payment_made }}</td>
+                                <td class="py-2 px-2">{{ $payment->payment_status }}</td>
+                                <td class="py-2 px-2">{{ $payment->payment_date }}</td>
                                 <td class="py-2 px-2">
                                     <div class="flex space-x-4">
+                                        <!-- Modal content -->
                                         <div id="myModal{{ $payment->id }}" class="modal">
-                                            <!-- Modal content -->
                                             <div class="modal-content">
                                                 <span class="close" data-id="{{ $payment->id }}">&times;</span>
                                                 <h1>Card Number</h1>
-                                                <p>{{ $payment->cardNumber }}</p>
+                                                <p>{{ $payment->cardNum }}</p>
                                                 <h1>Card Bank Name</h1>
-                                                <p>{{ $payment->bankName }}</p>
+                                                <p>{{ $payment->cardBank }}</p>
                                                 <h1>Card Expiration Date</h1>
-                                                <p>{{ $payment->cardExpDate }}</p>
+                                                <p>{{ $payment->cardExpirationDate }}</p>
                                                 <h1>Card Holder Name</h1>
-                                                <p>{{ $payment->cardHolderName }}</p>
+                                                <p>{{ $payment->cardholderName }}</p>
+                                                <h1>Card Holder State</h1>
+                                                <p>{{ $payment->cardholderState }}</p>
+                                                <h1>Card Holder City</h1>
+                                                <p>{{ $payment->cardholderCity }}</p>
+                                                <h1>Card Holder Postal Code</h1>
+                                                <p>{{ $payment->cardholderPostalCode }}</p>
+                                                <h1>E-Wallet Bank Name</h1>
+                                                <p>{{ $payment->eWalletbank }}</p>
+                                                <h1>E-Wallet Account Number</h1>
+                                                <p>{{ $payment->eWalletAccNum }}</p>
                                             </div>
                                         </div>
                                         
+                                        <!-- This button displays the modal -->
                                         <button id="myBtn{{ $payment->id }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-400 m-2"
                                                 fill="none" viewBox="0 0 24 24" stroke="grey" stroke-width="2">
@@ -80,31 +96,6 @@
                                                     d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
                                             </svg>
                                         </button>
-
-                                        <a href="{{ route('payment.edit', $payment->id) }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-400 m-2"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                            </svg>
-                                        </a>
-
-                                        <script>
-                                        function confirmDeleteProduct() {
-                                            return confirm('Are you sure you want to delete the product?');
-                                        }
-                                        </script>
-
-                                        <form action="{{ route('payment.delete', $payment->id) }}" method="post">
-                                            @csrf
-                                            <button type="submit" onclick="return confirmDeleteProduct()">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-400 m-2"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </button>
-                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -114,8 +105,8 @@
                 </div>
             </div>
         </div>
-
-        
+    </div>
+{{--Below is css and js for the modal pop-up effect--}}   
 
 <style type="text/css">
 /* The Modal (background) */
@@ -202,5 +193,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
 </x-app-layout>

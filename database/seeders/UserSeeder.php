@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'phone_num' => "0123456789",
             'role' => "KAFAadmin",
             'email' => "kafa@test",
+            'parent_id' => null,
             'password' => bcrypt("test"), // password
         ]);
 
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
             'phone_num' => "0123456789",
             'role' => "MUIPadmin",
             'email' => "muip@test",
+            'parent_id' => null,
             'password' => bcrypt("test"), // password
         ]);
 
@@ -34,39 +36,36 @@ class UserSeeder extends Seeder
             'phone_num' => "0123456789",
             'role' => "teacher",
             'email' => "teacher@test",
+            'parent_id' => null,
             'password' => bcrypt("test"), // password
         ]);
-        
+
+        User::factory()->create([
+            'name' => "Parent",
+            'phone_num' => "0123456789",
+            'role' => "parent",
+            'email' => "parent@test",
+            'parent_id' => "PA123",
+            'password' => bcrypt("test"), // password
+        ]);
+
         User::factory()->create([
             'name' => "Wan",
             'phone_num' => "0123456789",
             'role' => "parent",
             'email' => "wan@test",
+            'parent_id' => "PA124",
             'password' => bcrypt("test"), // password
         ]);
 
         User::factory()->create([
-            'name' => "Junta",
+            'name' => "Dude",
             'phone_num' => "0123456789",
             'role' => "parent",
-            'email' => "junta@test",
+            'email' => "dude@test",
+            'parent_id' => "PA125",
             'password' => bcrypt("test"), // password
         ]);
 
-        User::factory()->create([
-            'name' => "Abby",
-            'phone_num' => "0123456789",
-            'role' => "parent",
-            'email' => "abby@test",
-            'password' => bcrypt("test"), // password
-        ]);
-
-        User::factory()->create([
-            'name' => "Jie Ying",
-            'phone_num' => "0123456789",
-            'role' => "parent",
-            'email' => "jie@test",
-            'password' => bcrypt("test"), // password
-        ]);
     }
 }
