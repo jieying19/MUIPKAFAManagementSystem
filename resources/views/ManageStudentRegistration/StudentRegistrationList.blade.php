@@ -6,7 +6,7 @@
         </div>
         <div class="flex justify-end w-full mb-5 relative right-0">
             @include('components.searchbar')
-            @if(auth()->user()->role === 'KAFAadmin' || auth()->user()->role === 'Parent')
+            @if(auth()->user()->role === 'KAFAadmin' || auth()->user()->role === 'parent')
                 <a href="{{ route('ManageStudentRegistration.AddStudentRegistrationForm') }}"
                     class="p-2 mx-2 border border-transparent rounded-xl hover:text-gray-600"
                     style="background-color: #00AEA6;">
@@ -15,7 +15,7 @@
             @endif
         </div>
         <div class="flex justify-end w-full mb-5 relative right-0">
-            @if(auth()->user()->role === 'MUIPadmin' || auth()->user()->role === 'Teacher' || auth()->user()->role === 'KAFAadmin')
+            @if(auth()->user()->role === 'MUIPadmin' || auth()->user()->role === 'teacher' || auth()->user()->role === 'KAFAadmin')
                 <form action="{{ route('ManageStudentRegistration.ViewStudentRegistrationReport') }}" method="post">
                     @csrf
                     <!-- Add form inputs here -->
@@ -66,7 +66,7 @@
                                             href="{{ route('ManageStudentRegistration.ViewStudentRegistrationForm', $student->student_id)  }}">View</a></button>
                                 </div>
 
-                                @if(auth()->user()->role === 'KAFAadmin' || auth()->user()->role === 'Parent')
+                                @if(auth()->user()->role === 'KAFAadmin' || auth()->user()->role === 'parent')
                                     <div class="pl-3">
                                         <button class="p-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"> <a
                                                 href="{{ route('ManageStudentRegistration.EditStudentRegistrationForm', $student->student_id)  }}"
