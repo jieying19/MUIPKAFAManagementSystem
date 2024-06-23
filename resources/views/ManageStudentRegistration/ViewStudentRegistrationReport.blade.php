@@ -1,6 +1,5 @@
 <x-app-layout>
 
-
     {{-- Define printable object --}}
     <style>
         @media print {
@@ -32,9 +31,7 @@
                 right: 0;
                 left: 0;
                 height: 100%;
-
                 /* max-width: 100%; */
-
             }
 
             #barchart {
@@ -45,7 +42,6 @@
                 padding: 0;
                 right: 0;
                 left: 0;
-
             }
 
             #buttonP {
@@ -58,7 +54,7 @@
     <div class="flex flex-col">
         {{-- Title --}}
         <div class="font-extrabold text-xl mt-2">
-            Report
+            Student Registration Report
         </div>
 
         {{-- Content --}}
@@ -86,7 +82,7 @@
                         {{ __('Select Time Range') }}
                     </div>
 
-                    <form action="{{ route('report') }}" method="post">
+                    <form action="{{ route('studentRegistrationReport') }}" method="post">
                         @csrf
                         <!-- Weekly Slot -->
                         <button type="submit" class="w-full">
@@ -97,7 +93,7 @@
                         </button>
                     </form>
 
-                    <form action="{{ route('report') }}" method="post">
+                    <form action="{{ route('studentRegistrationReport') }}" method="post">
                         @csrf
                         <!-- Monthly Slot -->
                         <button type="submit" class="w-full">
@@ -108,7 +104,7 @@
                         </button>
                     </form>
 
-                    <form action="{{ route('report') }}" method="post">
+                    <form action="{{ route('studentRegistrationReport') }}" method="post">
                         @csrf
                         <!-- Yearly Slot -->
                         <button type="submit" class="w-full">
@@ -131,16 +127,15 @@
                 }
             </script>
 
-
-
-            <a href="{{ route('csv') }}"
+            <a href="{{ route('student.csv') }}"
                 class="p-2 mx-2 inline-flex items-center border border-transparent rounded-xl hover:text-gray-600"
                 style="background-color: #00AEA6;">
                 Export .csv
                 <img class="ml-1 hover:text-gray-600" src="{{ asset('images/Export CSV.svg') }}"
                     style="min-height: 40%; max-height:  65%;" /></a>
 
-            <a href class="p-2 mx-2 inline-flex items-center border border-transparent rounded-xl hover:text-gray-600"
+            <a href="#"
+                class="p-2 mx-2 inline-flex items-center border border-transparent rounded-xl hover:text-gray-600"
                 style="background-color: #00AEA6;" onclick="printPage()">
                 Export .pdf
                 <img class="ml-1 hover:text-gray-600" src="{{ asset('images/Export Pdf.svg') }}"
@@ -148,13 +143,13 @@
             </a>
         </div>
 
-        <div id="printable-section1"class="flex flex-col justify-between bg-white border 
-        border-slate-300 rounded-xl px-5 py-3 gap-y-11 mt-10 juj"
+        <div id="printable-section1"
+            class="flex flex-col justify-between bg-white border border-slate-300 rounded-xl px-5 py-3 gap-y-11 mt-10 juj"
             style="min-height: 60%; max-height:  80%;">
 
             <div class="flex justify-between">
                 <div class="font-bold text-lg">
-                    Sales Overview
+                    Student Registration Overview
                 </div>
                 <div class="font-bold text-lg">
                     {{ $currentDate }}
@@ -163,12 +158,11 @@
 
             <div id="barchart" class="w-full h-full">
 
-
                 <head>
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                     <script type="text/javascript">
-                        var productDataUrl = '{{ route('report.data', $range) }}';
+                        var ageDataUrl = '{{ route('ManageStudentAgeData', $range) }}';
 
                         google.charts.load('current', {
                             'packages': ['bar']
@@ -176,72 +170,49 @@
                         google.charts.setOnLoadCallback(drawChart);
 
                         function updateChart(range) {
-                            var url = '{{ route('report.data', ':range') }}';
+                            var url = '{{ route('ManageStudentAgeData', ':range') }}';
                             url = url.replace(':range', range);
 
-                            $.get(url, function(productData) {
-                                console.log('Product Data:', productData); // Log the productData
+                            $.get(url, function (ageData) {
+                                console.log('Age Data:', ageData); // Log the ageData
 
-                                if (!productData || productData.length === 0) {
-                                    // Handle empty or undefined productData
+                                if (!ageData || ageData.length === 0) {
+                                    // Handle empty or undefined ageData
                                     console.error('No data available.');
                                     return;
                                 }
 
-                                var categories = Object.keys(productData[0]).filter(function(key) {
-                                    return key !== 'week';
-                                });
-
                                 var data = new google.visualization.DataTable();
-                                data.addColumn('string', 'Time');
+                                data.addColumn('string', 'Age');
+                                data.addColumn('number', 'Count');
 
-                                // Add columns for each category
-                                categories.forEach(function(category) {
-                                    data.addColumn('number', category);
-                                });
-
-                                // Add rows for each time period
-                                productData.forEach(function(timeData) {
-                                    var timeLabel = '';
-
-                                    if (range === 'weekly') {
-                                        timeLabel = timeData.week;
-                                    } else if (range === 'monthly') {
-                                        timeLabel = timeData.month;
-                                    } else if (range === 'yearly') {
-                                        timeLabel = timeData.year;
-                                    }
-                                    var row = [timeLabel];
-
-                                    // Add quantity for each category
-                                    categories.forEach(function(category) {
-                                        var quantity = parseFloat(timeData[category]);
-                                        row.push(quantity);
-                                    });
-
-                                    data.addRow(row);
+                                // Add rows for each age group
+                                ageData.forEach(function (ageGroup) {
+                                    data.addRow([ageGroup.age, ageGroup.count]);
                                 });
 
                                 var options = {
                                     chart: {
-                                        title: 'PETAKOM Mart System',
-                                        subtitle: 'Sales Report of Weekly, Monthly, Yearly',
-                                    }
+                                        title: 'Student Age Distribution',
+                                        subtitle: 'Number of Students by Age Group',
+                                    },
+                                    bars: 'vertical'
                                 };
 
                                 var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
                                 chart.draw(data, google.charts.Bar.convertOptions(options));
-                            }).fail(function() {
+                            }).fail(function () {
                                 console.error('Failed to retrieve data.');
                             });
                         }
 
                         function drawChart() {
                             // Add an event listener to the range dropdown
-                            $('#weeklySelect, #monthlySelect, #yearlySelect').on('click', function() {
+                            $('#weeklySelect, #monthlySelect, #yearlySelect').on('click', function () {
                                 event.preventDefault();
 
-                                var selectedRange = $(this).siblings('input[name="range"]').val();
+                                var selectedRange = $(this).siblings
+                                    ('input[name="range"]').val();
                                 updateChart(selectedRange);
                             });
 
@@ -255,7 +226,6 @@
                 <div id="columnchart_material" class="w-full h-full p">
                 </div>
 
-
             </div>
 
         </div>
@@ -263,38 +233,42 @@
 
         <div id="printable-section2" class="mb-5">
             <div class="font-bold text-lg my-2">
-                Product Sales
+                Student Details
             </div>
             <div class="bg-white border border-slate-300 rounded-xl w-full px-4 overflow-y-auto h-4/5 max-h-80 mb-5">
                 <table class="table-auto w-full text-center">
                     <thead class="sticky top-0 bg-white">
                         <tr>
-                            <th class="py-4">ITEM ID</th>
-                            <th class="py-4">BRAND</th>
-                            <th class="py-4">CATEGORY</th>
-                            <th class="py-4">PRICE</th>
-                            <th class="py-4">COST</th>
-                            <th class="py-4">QUANTITY SOLD</th>
-                            <th class="py-4">TOTAL SALES</th>
+                            <th class="py-4">Student ID</th>
+                            <th class="py-4">Name</th>
+                            <th class="py-4">Age</th>
+                            <th class="py-4">Gender</th>
+                            <th class="py-4">Birth Reg No</th>
+                            <th class="py-4">IC</th>
+                            <th class="py-4">Health Condition</th>
+                            <th class="py-4">Birth Place</th>
+                            <th class="py-4">Home Address</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($carts as $cart)
+                        @foreach ($students as $student)
                             <tr class="bg-gray-200 border-y-8 border-white">
-                                <td class="py-2">{{ $cart->product_id }}</td>
-                                <td class="py-2">{{ $cart->product_name }}</td>
-                                <td class="py-2">{{ $cart->product_category }}</td>
-                                <td class="py-2">{{ number_format($cart->product_price, 2) }}</td>
-                                <td class="py-2">{{ number_format($cart->product_cost, 2) }}</td>
-                                <td class="py-2">{{ $cart->quantity }}</td>
-                                <td class="py-2">{{ number_format($cart->profit, 2) }}</td>
+                                <td class="py-2">{{ $student->student_id }}</td>
+                                <td class="py-2">{{ $student->student_name }}</td>
+                                <td class="py-2">{{ $student->student_age }}</td>
+                                <td class="py-2">{{ $student->student_gender }}</td>
+                                <td class="py-2">{{ $student->student_birthRegNo }}</td>
+                                <td class="py-2">{{ $student->student_ic }}</td>
+                                <td class="py-2">{{ $student->student_health }}</td>
+                                <td class="py-2">{{ $student->student_birthPlace }}</td>
+                                <td class="py-2">{{ $student->student_homeAddress }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
 
             </div>
         </div>
-
-
+    </div>
 
 </x-app-layout>

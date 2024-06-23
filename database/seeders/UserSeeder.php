@@ -14,30 +14,58 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name' => "Admin",
-            'matric_id' => "CB19000",
+            'name' => "KAFA",
             'phone_num' => "0123456789",
-            'role' => "admin",
-            'email' => "admin@test",
+            'role' => "KAFAadmin",
+            'email' => "kafa@test",
+            'parent_id' => null,
             'password' => bcrypt("test"), // password
         ]);
-        
+
         User::factory()->create([
-            'name' => "Cashier",
-            'matric_id' => "CB19001",
+            'name' => "MUIP",
             'phone_num' => "0123456789",
-            'role' => "cashier",
-            'email' => "cashier@test",
+            'role' => "MUIPadmin",
+            'email' => "muip@test",
+            'parent_id' => null,
             'password' => bcrypt("test"), // password
         ]);
-        
+
         User::factory()->create([
-            'name' => "Coordinator",
-            'matric_id' => "CB19002",
+            'name' => "Teacher",
             'phone_num' => "0123456789",
-            'role' => "coordinator",
-            'email' => "coordinator@test",
+            'role' => "teacher",
+            'email' => "teacher@test",
+            'parent_id' => null,
             'password' => bcrypt("test"), // password
         ]);
+
+        User::factory()->create([
+            'name' => "Parent",
+            'phone_num' => "0123456789",
+            'role' => "parent",
+            'email' => "parent@test",
+            'parent_id' => "PA123",
+            'password' => bcrypt("test"), // password
+        ]);
+
+        User::factory()->create([
+            'name' => "Wan",
+            'phone_num' => "0123456789",
+            'role' => "parent",
+            'email' => "wan@test",
+            'parent_id' => "PA124",
+            'password' => bcrypt("test"), // password
+        ]);
+
+        User::factory()->create([
+            'name' => "Dude",
+            'phone_num' => "0123456789",
+            'role' => "parent",
+            'email' => "dude@test",
+            'parent_id' => "PA125",
+            'password' => bcrypt("test"), // password
+        ]);
+
     }
 }
